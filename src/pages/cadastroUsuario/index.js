@@ -3,24 +3,35 @@ import '../../pages/global.css';
 import Menu from '../../componentes/menu'
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import {Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import Head from '../../componentes/Head';
 
 export default function Cadastrousuario(){
+    const navigate = useNavigate();
 
     const [nome,setNome] = useState("");
     const [email,setEmail] = useState("");
     const [senha,setSenha] = useState("");
     const usuario={
+        id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
         nome, email, senha
     }
     function salvardados(e){
         e.preventDefault();
        // console.log(usuario);
-       const banco =JSON.parse( localStorage.getItenm("cd-ususarios") || "[]");
+       if(nome=="")
+       alert("Preencha o campo nome")
+       else if(email=="")
+       alert("Preencha o campo email")
+       else if(senha=="")
+       alert("Preencha o campo senha")
+       else{
+        const banco =JSON.parse( localStorage.getItem("cd-usuarios") || "[]");
        banco.push(usuario);
        localStorage.setItem("cd-usuarios",JSON.stringify(banco));
        alert("Usuario salvo com sucesso!");
+       navigate('/listausuario')
+       }
     }
 
 
