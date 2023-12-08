@@ -18,22 +18,37 @@ export default function Cadastrousuario(){
     }
     function salvardados(e){
         e.preventDefault();
-       // console.log(usuario);
-       if(nome=="")
-       alert("Preencha o campo nome")
-       else if(email=="")
-       alert("Preencha o campo email")
-       else if(senha=="")
-       alert("Preencha o campo senha")
-       else{
-        const banco =JSON.parse( localStorage.getItem("cd-usuarios") || "[]");
+    //    console.log(usuario);
+    //    if(nome=="")
+    //    alert("Preencha o campo nome")
+    //    else if(email=="")
+    //    alert("Preencha o campo email")
+    //    else if(senha=="")
+    //    alert("Preencha o campo senha")
+    //    else{
+    //     const banco =JSON.parse( localStorage.getItem("cd-usuarios") || "[]");
+    //    banco.push(usuario);
+    //    localStorage.setItem("cd-usuarios",JSON.stringify(banco));
+    //    alert("Usuario salvo com sucesso!");
+    //    navigate('/listausuario')
+    //    }
+        let i=0;
+        if(nome=="")
+        i++;
+        else if(email=="")
+        i++;
+        else if(senha=="")
+        i++;
+        if(i==0){
+
+    const banco =JSON.parse( localStorage.getItem("cd-usuarios") || "[]");
        banco.push(usuario);
        localStorage.setItem("cd-usuarios",JSON.stringify(banco));
        alert("Usuario salvo com sucesso!");
        navigate('/listausuario')
-       }
+       
     }
-
+    }
 
      return(
         <div className="dashboard-container">

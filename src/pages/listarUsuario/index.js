@@ -1,3 +1,5 @@
+import React,{useState, useEffect} from 'react';
+
 import '../../pages/global.css';
 import Logo from '../../assets/img/logo.jpg'
 import Menu from '../../componentes/menu'
@@ -10,13 +12,24 @@ import Head from '../../componentes/Head';
 
 export default function Listausuario(){
 
+  const [dados, setDados] = useState([]);
+  const [banco, setBanco] = useState([]);
+
     // const dados=[
     //     {id:1,nome:"Carlos",email:"carlos@gmail.com",senha:"123"},
     //     {id:2,nome:"Felipe",email:"felipe@gmail.com",senha:"321"},
     //     {id:3,nome:"Nilson",email:"nilson@gmail.com",senha:"321"},
 
     // ]
-    const banco =JSON.parse( localStorage.getItem("cd-usuarios") || "[]");
+  useEffect(()=>{
+    mostrardados();
+  },[])
+
+
+    function mostrardados(){
+      setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]")); 
+    }
+     
   const  apagar = (id) => {
       confirmAlert({
         title: 'Excluir Usuário',
@@ -24,7 +37,12 @@ export default function Listausuario(){
         buttons: [
           {
             label: 'Sim',
-            onClick: () => alert(`Você apagou o usuário id:${id}`)
+            onClick: () => 
+            {
+              setDados(banco.filter(item=>item.id!==id))
+              localStorage.setItem("cd-usuarios",JSON.stringify(dados));
+              alert(`Você apagou o usuário id:${id}`)
+            }
           },
           {
             label: 'Não',
