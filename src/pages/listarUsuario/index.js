@@ -9,11 +9,13 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import {Link} from 'react-router-dom';
 import Head from '../../componentes/Head';
+import { useNavigate} from 'react-router-dom';
 
 export default function Listausuario(){
 
   const [dados, setDados] = useState([]);
   const [banco, setBanco] = useState([]);
+  const navigate=useNavigate();
 
     // const dados=[
     //     {id:1,nome:"Carlos",email:"carlos@gmail.com",senha:"123"},
@@ -30,19 +32,20 @@ export default function Listausuario(){
       setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]")); 
     }
      
-  const  apagar = (id) => {
+    const  apagar = (id) => {
       confirmAlert({
         title: 'Excluir Usuário',
         message: 'Deseja realmente excluir esse usuário?',
         buttons: [
           {
             label: 'Sim',
-            onClick: () => 
-            {
-              setDados(banco.filter(item=>item.id!==id))
-              localStorage.setItem("cd-usuarios",JSON.stringify(dados));
-              alert(`Você apagou o usuário id:${id}`)
+            onClick: () => {
+              let dadosnovos = banco.filter(item => item.id !== id);
+              localStorage.setItem("cd-usuarios", JSON.stringify(dadosnovos));
+              setBanco(dadosnovos); // Atualiza o estado com os dados filtrados
+              alert(`Você apagou o usuário id:${id}`);
             }
+            
           },
           {
             label: 'Não',
@@ -81,7 +84,9 @@ export default function Listausuario(){
                     <td>{linha.nome}</td>    
                     <td>{linha.email}</td>    
                     <td className='botoes'> 
-                      <FiEdit size={18} color='#3a5795'  />  
+                    <link to={`/editarusuario/${linha.id}`}>
+                      <FiEdit size={18} color='#3a5795'  />
+                      </link>  
                     </td>    
                     <td className='botoes'> 
                           <FiTrash 
