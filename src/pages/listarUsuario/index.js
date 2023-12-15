@@ -30,6 +30,15 @@ export default function Listausuario(){
 
     function mostrardados(){
       setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]")); 
+
+      banco.map((linha)=>{
+        if(linha.id===id){
+          setNome(linha.nome);
+          setEmail(linha.email);
+          setSenha(linha.senha);
+
+        }
+      })
     }
      
     const  apagar = (id) => {

@@ -15,6 +15,7 @@ export default function Editarusuario(){
   const [email,setEmail]  = useState("");
   const [senha,setSenha]  = useState("");
   const [banco,setBanco] = useState([]);
+  const [status, setStatus] = useState(true);
   
   
   const usuario={     
@@ -23,9 +24,13 @@ export default function Editarusuario(){
       senha
   }
   useEffect(()=>{
-    mostrardados();
-  },[])
-  function mostrardados(){
+    if(status===true){
+      mostrardados(id);
+      setStatus(false);
+    }
+   
+  },[banco])
+  async function mostrardados(){
     setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]"));
     let dadosnovos = banco.filter(item => item.id === id);
     setNome(dadosnovos.nome);

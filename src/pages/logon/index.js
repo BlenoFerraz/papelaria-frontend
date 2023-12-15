@@ -6,9 +6,19 @@ import {useNavigate} from 'react-router-dom';
 
 export default function Logon(){
 const navigate = useNavigate();
+const [email,setEmail]=useState();
+const [senha,setSenha]=useState();
 
 const logar =(e)=>{
 e.preventDefault();
+let banco = JSON.parse(localStorage.getItem("cd-usuarios") || "[]");
+
+let dadosnovos = banco.filter(item => item.email === email && item.senha === senha);
+if(dadosnovos.length>0){
+    navigate('/dashboard');
+}else{
+    alert("Dados incorretos!");
+}
 navigate('/dashboard');
 }
 
@@ -20,8 +30,11 @@ navigate('/dashboard');
         <section className="form">
             <h1>Faça seu login</h1>
             <form onSubmit={logar} >
-                <input placeholder="Email" />
-                <input placeholder="Senha" type='password' />
+                <input placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}/>
+               
+                <input placeholder="Senha" type='password' value={senha} onChange={e=>setSenha(e.target.value)}/>
+              
+
                 <button type="submit">Entrar</button>
                 <a href="#">Novo Cadastro</a>
             </form>
