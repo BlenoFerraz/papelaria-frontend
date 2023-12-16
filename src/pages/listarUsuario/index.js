@@ -1,5 +1,4 @@
-import React,{useState, useEffect} from 'react';
-
+import React,{useState,useEffect} from 'react';
 import '../../pages/global.css';
 import Logo from '../../assets/img/logo.jpg'
 import Menu from '../../componentes/menu'
@@ -12,36 +11,25 @@ import Head from '../../componentes/Head';
 import { useNavigate} from 'react-router-dom';
 
 export default function Listausuario(){
-
-  const [dados, setDados] = useState([]);
-  const [banco, setBanco] = useState([]);
-  const navigate=useNavigate();
-
+const [dados,setDados] = useState([]);
+const [banco,setBanco] = useState([]);
+const navigate=useNavigate();
     // const dados=[
     //     {id:1,nome:"Carlos",email:"carlos@gmail.com",senha:"123"},
     //     {id:2,nome:"Felipe",email:"felipe@gmail.com",senha:"321"},
     //     {id:3,nome:"Nilson",email:"nilson@gmail.com",senha:"321"},
 
     // ]
-  useEffect(()=>{
-    mostrardados();
-  },[])
+    useEffect(()=>{
+      mostrardados();
+    },[])
 
-
-    function mostrardados(){
-      setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]")); 
-
-      banco.map((linha)=>{
-        if(linha.id===id){
-          setNome(linha.nome);
-          setEmail(linha.email);
-          setSenha(linha.senha);
-
-        }
-      })
+    function mostrardados()
+    {
+      setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]"));
     }
-     
-    const  apagar = (id) => {
+  
+     const  apagar = (id) => {
       confirmAlert({
         title: 'Excluir Usuário',
         message: 'Deseja realmente excluir esse usuário?',
@@ -93,9 +81,9 @@ export default function Listausuario(){
                     <td>{linha.nome}</td>    
                     <td>{linha.email}</td>    
                     <td className='botoes'> 
-                    <link to={`/editarusuario/${linha.id}`}>
-                      <FiEdit size={18} color='#3a5795'  />
-                      </link>  
+                    <Link to={`/editarusuario/${linha.id}`}>
+                      <FiEdit size={18} color='#3a5795'  /> 
+                    </Link> 
                     </td>    
                     <td className='botoes'> 
                           <FiTrash 

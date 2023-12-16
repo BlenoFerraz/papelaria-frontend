@@ -16,6 +16,7 @@ export default function Rotas(){
                 <Route path="/listausuario" element={<Listausuario />} />
                 <Route path="/cadastrousuario" element={<Cadastrousuario />} />
                 <Route path="/editarusuario/:id" element={<Editarusuario />} />
+             
             </Routes>
        
        </BrowserRouter>

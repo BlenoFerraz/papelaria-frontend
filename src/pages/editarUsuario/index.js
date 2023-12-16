@@ -9,7 +9,7 @@ import {useNavigate,useParams} from 'react-router-dom';
 import Head from '../../componentes/Head';
 
 export default function Editarusuario(){
-  const id = useParams.id;
+  let { id } = useParams();
   const navigate =useNavigate();
   const [nome,setNome]  = useState("");
   const [email,setEmail]  = useState("");
@@ -24,20 +24,25 @@ export default function Editarusuario(){
       senha
   }
   useEffect(()=>{
-    if(status===true){
+  
       mostrardados(id);
-      setStatus(false);
-    }
-   
-  },[banco])
-  async function mostrardados(){
-    setBanco(JSON.parse(localStorage.getItem("cd-usuarios") || "[]"));
-    let dadosnovos = banco.filter(item => item.id === id);
-    setNome(dadosnovos.nome);
-    setEmail(dadosnovos.email);
-    setSenha(dadosnovos.senha);
 
-  }
+
+   
+  },[])
+  async function mostrardados(idu) {
+    let listaUser =JSON.parse(localStorage.getItem("cd-usuarios"));
+      
+           listaUser.
+               filter(value => value.id ==idu).
+               map(value => {
+                   setNome(value.nome);
+                   setEmail(value.email);
+                   setSenha(value.senha);
+                   
+       
+       })
+     }
 
 
   function salvardados(e){
@@ -91,6 +96,7 @@ if(i==0)
                     onChange={e=>setSenha(e.target.value)}
                     placeholder='Digite a senha' 
             />
+            
             <div className='acao'>
             <button className='btn-save'>
                <FaSave />
